@@ -7,12 +7,11 @@ import ctypes
 import inspect
 
 def swizzle(cls, selector, new_fcn):
-	'''swizzles ObjCClass cls's selector with implementation from python new_fcn.  new_fcn needs to adjere to ther type encoding of the original, including the two "hidden" arguments _self, _sel.
+	'''swizzles ObjCClass cls's selector with implementation from python new_fcn.  new_fcn needs to adhere to the type encoding of the original, including the two "hidden" arguments _self, _sel.
 
-	if a class is already swizzled, this will override swizzled impleme tation, and use new method.  We could implement a forwarding system, but it becomes hard to unswizzle because there is no way to remove a selector once added.  
+	if a class is already swizzled, this will override swizzled implementation, and use new method.  We could implement a forwarding system, but it becomes hard to unswizzle because there is no way to remove a selector once added.  
 	
 	A method can always get its predecessor by simply prepending original to its selector name.
-	
 	'''
 	type_encoding=str(cls.instanceMethodSignatureForSelector_(sel(selector))._typeString())
 	parsed_types = parse_types(str(type_encoding))
